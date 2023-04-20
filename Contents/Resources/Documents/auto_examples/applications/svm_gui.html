@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8"/>
+<meta content="Docutils 0.19: https://docutils.sourceforge.io/" name="generator">
+<meta content="Libsvm GUI" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://scikit-learn/stable/auto_examples/applications/svm_gui.html" property="og:url"/>
+<meta content="scikit-learn" property="og:site_name"/>
+<meta content="A simple graphical frontend for Libsvm mainly intended for didactic purposes. You can create data points by point and click and visualize the decision region induced by different kernels and parame..." property="og:description"/>
+<meta content="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" property="og:image"/>
+<meta content="scikit-learn" property="og:image:alt"/>
+<meta content="A simple graphical frontend for Libsvm mainly intended for didactic purposes. You can create data points by point and click and visualize the decision region induced by different kernels and parame..." name="description"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Libsvm GUI — scikit-learn 1.2.2 documentation</title>
+<link href="http://scikit-learn.org/stable/auto_examples/applications/svm_gui.html" rel="canonical"/>
+<link href="../../_static/favicon.ico" rel="shortcut icon"/>
+<link href="../../_static/css/vendor/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/pygments.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/plot_directive.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-binder.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-dataframe.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sg_gallery-rendered-html.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/css/theme.css" rel="stylesheet" type="text/css"/>
+<script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+<script src="../../_static/js/vendor/jquery-3.6.3.slim.min.js"></script>
+</meta></head>
+<body>
+<nav class="sk-docs-navbar navbar navbar-expand-md navbar-light bg-light py-0" id="navbar">
+<div class="container-fluid sk-docs-container px-0">
+<a class="navbar-brand py-0" href="../../index.html">
+<img alt="logo" class="sk-brand-img" src="../../_static/scikit-learn-logo-small.png"/>
+</a>
+<button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" id="sk-navbar-toggler" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="sk-navbar-collapse collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a class="sk-nav-link nav-link" href="../../install.html">Install</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link" href="../../user_guide.html">User Guide</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link" href="../../modules/classes.html">API</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link" href="../index.html">Examples</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link" href="https://blog.scikit-learn.org/" rel="noopener noreferrer" target="_blank">Community</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../getting_started.html">Getting Started</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../tutorial/index.html">Tutorial</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../whats_new/v1.2.html">What's new</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../glossary.html">Glossary</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/developers/index.html" rel="noopener noreferrer" target="_blank">Development</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../faq.html">FAQ</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../support.html">Support</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../related_projects.html">Related packages</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../roadmap.html">Roadmap</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../governance.html">Governance</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="../../about.html">About us</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+</li>
+<li class="nav-item">
+<a class="sk-nav-link nav-link nav-more-item-mobile-items" href="https://scikit-learn.org/dev/versions.html">Other Versions and Download</a>
+</li>
+<li class="nav-item dropdown nav-more-item-dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="sk-nav-link nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdown" role="button">More</a>
+<div aria-labelledby="navbarDropdown" class="dropdown-menu">
+<a class="sk-nav-dropdown-item dropdown-item" href="../../getting_started.html">Getting Started</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../tutorial/index.html">Tutorial</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../whats_new/v1.2.html">What's new</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../glossary.html">Glossary</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/developers/index.html" rel="noopener noreferrer" target="_blank">Development</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../faq.html">FAQ</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../support.html">Support</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../related_projects.html">Related packages</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../roadmap.html">Roadmap</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../governance.html">Governance</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="../../about.html">About us</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="https://github.com/scikit-learn/scikit-learn">GitHub</a>
+<a class="sk-nav-dropdown-item dropdown-item" href="https://scikit-learn.org/dev/versions.html">Other Versions and Download</a>
+</div>
+</li>
+</ul>
+<div id="searchbox" role="search">
+<div class="searchformwrapper">
+<form action="../../search.html" class="search" method="get">
+<input aria-labelledby="searchlabel" class="sk-search-text-input" name="q" type="text"/>
+<input class="sk-search-text-btn" type="submit" value="Go"/>
+</form>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="d-flex" id="sk-doc-wrapper">
+<input id="sk-toggle-checkbox" name="sk-toggle-checkbox" type="checkbox"/>
+<label class="sk-btn-toggle-toc btn sk-btn-primary" for="sk-toggle-checkbox" id="sk-sidemenu-toggle">Toggle Menu</label>
+<div class="border-right" id="sk-sidebar-wrapper">
+<div class="sk-sidebar-toc-wrapper">
+<div aria-label="rellinks" class="btn-group w-100 mb-2" role="group">
+<a class="btn sk-btn-rellink py-1" href="plot_digits_denoising.html" role="button" sk-rellink-tooltip="Image denoising using kernel PCA">Prev</a><a class="btn sk-btn-rellink py-1" href="index.html" role="button" sk-rellink-tooltip="Examples based on real world datasets">Up</a>
+<a class="btn sk-btn-rellink py-1" href="plot_model_complexity_influence.html" role="button" sk-rellink-tooltip="Model Complexity Influence">Next</a>
+</div>
+<div class="alert alert-danger p-1 mb-2" role="alert">
+<p class="text-center mb-0">
+<strong>scikit-learn 1.2.2</strong><br/>
+<a href="http://scikit-learn.org/dev/versions.html">Other versions</a>
+</p>
+</div>
+<div class="alert alert-warning p-1 mb-2" role="alert">
+<p class="text-center mb-0">
+            Please <a class="font-weight-bold" href="../../about.html#citing-scikit-learn"><string>cite us</string></a> if you use the software.
+          </p>
+</div>
+<div class="sk-sidebar-toc">
+<ul>
+<li><a class="reference internal" href="#">Libsvm GUI</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="sk-page-content-wrapper">
+<div class="sk-page-content container-fluid body px-md-3" role="main">
+<div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-applications-svm-gui-py"><span class="std std-ref">here</span></a>
+to download the full example code or to run this example in your browser via Binder</p>
+</div>
+<section class="sphx-glr-example-title" id="libsvm-gui">
+<a class="dashAnchor" name="//apple_ref/cpp/Section/Libsvm GUI"></a><span id="sphx-glr-auto-examples-applications-svm-gui-py"></span><h1>Libsvm GUI<a class="headerlink" href="#libsvm-gui" title="Permalink to this heading">¶</a></h1>
+<p>A simple graphical frontend for Libsvm mainly intended for didactic
+purposes. You can create data points by point and click and visualize
+the decision region induced by different kernels and parameter settings.</p>
+<p>To create positive examples click the left mouse button; to create
+negative examples click the right button.</p>
+<p>If all examples are from the same class, it uses a one-class SVM.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: Peter Prettenhoer &lt;peter.prettenhofer@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD 3 clause</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<a class="sphx-glr-backref-module-matplotlib sphx-glr-backref-type-py-function" href="https://matplotlib.org/stable/api/matplotlib_configuration_api.html#matplotlib.use" title="matplotlib.use"><span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="s2">"TkAgg"</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <a class="sphx-glr-backref-module-matplotlib-backends-backend_tkagg sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/backend_tk_api.html#matplotlib.backends.backend_tkagg.FigureCanvasTkAgg" title="matplotlib.backends.backend_tkagg.FigureCanvasTkAgg"><span class="n">FigureCanvasTkAgg</span></a>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <span class="n">NavigationToolbar2Tk</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c1"># NavigationToolbar2TkAgg was deprecated in matplotlib 2.2</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.backends.backend_tkagg</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">NavigationToolbar2TkAgg</span> <span class="k">as</span> <span class="n">NavigationToolbar2Tk</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <a class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure"><span class="n">Figure</span></a>
+<span class="kn">from</span> <span class="nn">matplotlib.contour</span> <span class="kn">import</span> <a class="sphx-glr-backref-module-matplotlib-contour sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/contour_api.html#matplotlib.contour.ContourSet" title="matplotlib.contour.ContourSet"><span class="n">ContourSet</span></a>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">Tk</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <a class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function" href="../../modules/generated/sklearn.datasets.dump_svmlight_file.html#sklearn.datasets.dump_svmlight_file" title="sklearn.datasets.dump_svmlight_file"><span class="n">dump_svmlight_file</span></a>
+
+<span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span>
+<span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span>
+
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""The Model which hold the data. It implements the</span>
+<span class="sd">    observable in the observer pattern and notifies the</span>
+<span class="sd">    registered observers on change event.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface_type</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Notify the observers."""</span>
+        <span class="k">for</span> <span class="n">observer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">observers</span><span class="p">:</span>
+            <span class="n">observer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Register an observer."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">observer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface</span> <span class="o">=</span> <span class="n">surface</span>
+
+    <span class="k">def</span> <span class="nf">dump_svmlight_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+        <a class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function" href="../../modules/generated/sklearn.datasets.dump_svmlight_file.html#sklearn.datasets.dump_svmlight_file" title="sklearn.datasets.dump_svmlight_file"><span class="n">dump_svmlight_file</span></a><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Controller</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">IntVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">surface_type</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">IntVar</span><span class="p">()</span>
+        <span class="c1"># Whether or not a model has been fitted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"fit the model"</span><span class="p">)</span>
+        <span class="n">train</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">train</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">train</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">C</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">complexity</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">coef0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coef0</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">degree</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">degree</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+        <span class="n">kernel_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">"linear"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"rbf"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"poly"</span><span class="p">}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">clf</span> <span class="o">=</span> <a class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="../../modules/generated/sklearn.svm.OneClassSVM.html#sklearn.svm.OneClassSVM" title="sklearn.svm.OneClassSVM"><span class="n">svm</span><span class="o">.</span><span class="n">OneClassSVM</span></a><span class="p">(</span>
+                <span class="n">kernel</span><span class="o">=</span><span class="n">kernel_map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">get</span><span class="p">()],</span>
+                <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+                <span class="n">coef0</span><span class="o">=</span><span class="n">coef0</span><span class="p">,</span>
+                <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clf</span> <span class="o">=</span> <a class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="../../modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC"><span class="n">svm</span><span class="o">.</span><span class="n">SVC</span></a><span class="p">(</span>
+                <span class="n">kernel</span><span class="o">=</span><span class="n">kernel_map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">get</span><span class="p">()],</span>
+                <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">,</span>
+                <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+                <span class="n">coef0</span><span class="o">=</span><span class="n">coef0</span><span class="p">,</span>
+                <span class="n">degree</span><span class="o">=</span><span class="n">degree</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="s2">"score"</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Accuracy:"</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decision_surface</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_surface</span><span class="p">((</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">surface_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">surface_type</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="s2">"surface"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">decision_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.arange.html#numpy.arange" title="numpy.arange"><span class="n">np</span><span class="o">.</span><span class="n">arange</span></a><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span> <span class="o">=</span> <a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function" href="https://numpy.org/doc/stable/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="numpy.meshgrid"><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span></a><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><a class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-data" href="https://numpy.org/doc/stable/reference/generated/numpy.c_.html#numpy.c_" title="numpy.c_"><span class="n">np</span><span class="o">.</span><span class="n">c_</span></a><span class="p">[</span><span class="n">X1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">X2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">X1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span>
+
+    <span class="k">def</span> <span class="nf">clear_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="s2">"clear"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">add_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">changed</span><span class="p">(</span><span class="s2">"example_added"</span><span class="p">)</span>
+
+        <span class="c1"># update decision surface if already fitted.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">refit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Refit the model if already fitted."""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">View</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Test docstring."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <a class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure"><span class="n">Figure</span></a><span class="p">()</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">))</span>
+        <span class="n">canvas</span> <span class="o">=</span> <a class="sphx-glr-backref-module-matplotlib-backends-backend_tkagg sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/backend_tk_api.html#matplotlib.backends.backend_tkagg.FigureCanvasTkAgg" title="matplotlib.backends.backend_tkagg.FigureCanvasTkAgg"><span class="n">FigureCanvasTkAgg</span></a><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># support for matplotlib (1.*)</span>
+            <span class="n">canvas</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">get_tk_widget</span><span class="p">()</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">_tkcanvas</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">BOTH</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s2">"button_press_event"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">onclick</span><span class="p">)</span>
+        <span class="n">toolbar</span> <span class="o">=</span> <span class="n">NavigationToolbar2Tk</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+        <span class="n">toolbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controllbar</span> <span class="o">=</span> <span class="n">ControllBar</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">controller</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span> <span class="o">=</span> <span class="n">canvas</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c_labels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot_kernels</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">plot_kernels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="s2">"Linear: $u^T v$"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"RBF: $\exp (-\gamma \| u-v \|^2)$"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="sa">r</span><span class="s2">"Poly: $(\gamma \, u^T v + r)^d$"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">onclick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_example</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">add_example</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_example</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">"w"</span>
+        <span class="k">elif</span> <span class="n">l</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s2">"k"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">o"</span> <span class="o">%</span> <span class="n">color</span><span class="p">,</span> <span class="n">scalex</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scaley</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s2">"examples_loaded"</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_example</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s2">"example_added"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_example</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s2">"clear"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">c_labels</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_kernels</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">event</span> <span class="o">==</span> <span class="s2">"surface"</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_surface</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_support_vectors</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">clf</span><span class="o">.</span><span class="n">support_vectors_</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plot_decision_surface</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">surface</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">surface_type</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">remove_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Remove old decision surface."""</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">contour</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">contour</span><span class="p">,</span> <a class="sphx-glr-backref-module-matplotlib-contour sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://matplotlib.org/stable/api/contour_api.html#matplotlib.contour.ContourSet" title="matplotlib.contour.ContourSet"><span class="n">ContourSet</span></a><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">lineset</span> <span class="ow">in</span> <span class="n">contour</span><span class="o">.</span><span class="n">collections</span><span class="p">:</span>
+                        <span class="n">lineset</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">contour</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">plot_support_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">support_vectors</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Plot the support vectors by placing circles over the</span>
+<span class="sd">        corresponding data points and adds the circle collection</span>
+<span class="sd">        to the contours list."""</span>
+        <span class="n">cs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">support_vectors</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">support_vectors</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+            <span class="n">edgecolors</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span>
+            <span class="n">facecolors</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">plot_decision_surface</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">surface</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+        <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">surface</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+            <span class="n">linestyles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="s2">"solid"</span><span class="p">,</span> <span class="s2">"dashed"</span><span class="p">]</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="s2">"k"</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">levels</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="n">linestyles</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span>
+                    <span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bone</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">"lower"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s2">"k"</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="p">[</span><span class="s2">"solid"</span><span class="p">])</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"surface type unknown"</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ControllBar</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="n">fm</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">kernel_group</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">fm</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Radiobutton</span><span class="p">(</span>
+            <span class="n">kernel_group</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Linear"</span><span class="p">,</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">refit</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Radiobutton</span><span class="p">(</span>
+            <span class="n">kernel_group</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"RBF"</span><span class="p">,</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">refit</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Radiobutton</span><span class="p">(</span>
+            <span class="n">kernel_group</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Poly"</span><span class="p">,</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">refit</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">kernel_group</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">valbox</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">fm</span><span class="p">)</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">complexity</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">complexity</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"1.0"</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">valbox</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"C:"</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">"e"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">complexity</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"0.01"</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">valbox</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"gamma:"</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">"e"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">g</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">degree</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">valbox</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"degree:"</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">"e"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+
+        <span class="n">controller</span><span class="o">.</span><span class="n">coef0</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="n">controller</span><span class="o">.</span><span class="n">coef0</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">"0"</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">valbox</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"coef0:"</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s2">"e"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Entry</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">textvariable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">coef0</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="n">valbox</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">cmap_group</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">fm</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Radiobutton</span><span class="p">(</span>
+            <span class="n">cmap_group</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Hyperplanes"</span><span class="p">,</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">surface_type</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">refit</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Radiobutton</span><span class="p">(</span>
+            <span class="n">cmap_group</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Surface"</span><span class="p">,</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">surface_type</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">refit</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">anchor</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">W</span><span class="p">)</span>
+
+        <span class="n">cmap_group</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">train_button</span> <span class="o">=</span> <span class="n">Tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">fm</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Fit"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">fit</span><span class="p">)</span>
+        <span class="n">train_button</span><span class="o">.</span><span class="n">pack</span><span class="p">()</span>
+        <span class="n">fm</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+        <span class="n">Tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">fm</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Clear"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">controller</span><span class="o">.</span><span class="n">clear_data</span><span class="p">)</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="n">side</span><span class="o">=</span><span class="n">Tk</span><span class="o">.</span><span class="n">LEFT</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_parser</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <a class="sphx-glr-backref-module-optparse sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://docs.python.org/3/library/optparse.html#optparse.OptionParser" title="optparse.OptionParser"><span class="n">OptionParser</span></a>
+
+    <span class="n">op</span> <span class="o">=</span> <a class="sphx-glr-backref-module-optparse sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://docs.python.org/3/library/optparse.html#optparse.OptionParser" title="optparse.OptionParser"><span class="n">OptionParser</span></a><span class="p">()</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s2">"--output"</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">"store"</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">"str"</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s2">"output"</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">"Path where to dump data."</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">op</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
+    <span class="n">opts</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">op</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="n">root</span> <span class="o">=</span> <a class="sphx-glr-backref-module-tkinter sphx-glr-backref-type-py-class sphx-glr-backref-instance" href="https://docs.python.org/3/library/tkinter.html#tkinter.Tk" title="tkinter.Tk"><span class="n">Tk</span><span class="o">.</span><span class="n">Tk</span></a><span class="p">()</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">wm_title</span><span class="p">(</span><span class="s2">"Scikit-learn Libsvm GUI"</span><span class="p">)</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">controller</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="n">view</span><span class="p">)</span>
+    <span class="n">Tk</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">output</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><a class="sphx-glr-backref-module-sklearn-datasets sphx-glr-backref-type-py-function" href="../../modules/generated/sklearn.datasets.dump_svmlight_file.html#sklearn.datasets.dump_svmlight_file" title="sklearn.datasets.dump_svmlight_file"><span class="n">dump_svmlight_file</span></a><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">(</span><a class="sphx-glr-backref-module-sys sphx-glr-backref-type-py-data" href="https://docs.python.org/3/library/sys.html#sys.argv" title="sys.argv"><span class="n">sys</span><span class="o">.</span><span class="n">argv</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<a class="dashAnchor" name="//apple_ref/cpp/Section/sphx_glr_download_auto_examples_applications_svm_gui.py"></a><div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-applications-svm-gui-py">
+<div class="binder-badge docutils container">
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/scikit-learn/scikit-learn/1.2.X?urlpath=lab/tree/notebooks/auto_examples/applications/svm_gui.ipynb"><img alt="Launch binder" src="../../_images/binder_badge_logo8.svg" width="150px"/></a>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d889921befb295d1231ec003639ee4ed/svm_gui.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">svm_gui.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/c5bc3466ea81a166c26f41af11f3ae64/svm_gui.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">svm_gui.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</div>
+<div class="container">
+<footer class="sk-content-footer">
+            © 2007 - 2023, scikit-learn developers (BSD License).
+          <a href="../../_sources/auto_examples/applications/svm_gui.rst.txt" rel="nofollow">Show this page source</a>
+</footer>
+</div>
+</div>
+</div>
+<script src="../../_static/js/vendor/bootstrap.min.js"></script>
+<script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-22606712-2', 'auto');
+    ga('set', 'anonymizeIp', true);
+    ga('send', 'pageview');
+</script>
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script data-domain="scikit-learn.org" defer="" src="https://views.scientific-python.org/js/script.js">
+</script>
+<script>
+$(document).ready(function() {
+    /* Add a [>>>] button on the top-right corner of code samples to hide
+     * the >>> and ... prompts and the output and thus make the code
+     * copyable. */
+    var div = $('.highlight-python .highlight,' +
+                '.highlight-python3 .highlight,' +
+                '.highlight-pycon .highlight,' +
+		'.highlight-default .highlight')
+    var pre = div.find('pre');
+
+    // get the styles from the current theme
+    pre.parent().parent().css('position', 'relative');
+    var hide_text = 'Hide prompts and outputs';
+    var show_text = 'Show prompts and outputs';
+
+    // create and add the button to all the code blocks that contain >>>
+    div.each(function(index) {
+        var jthis = $(this);
+        if (jthis.find('.gp').length > 0) {
+            var button = $('<span class="copybutton">&gt;&gt;&gt;</span>');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+            jthis.prepend(button);
+        }
+        // tracebacks (.gt) contain bare text elements that need to be
+        // wrapped in a span to work with .nextUntil() (see later)
+        jthis.find('pre:has(.gt)').contents().filter(function() {
+            return ((this.nodeType == 3) && (this.data.trim().length > 0));
+        }).wrap('<span>');
+    });
+
+    // define the behavior of the button when it's clicked
+    $('.copybutton').click(function(e){
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('hidden') === 'false') {
+            // hide the code output
+            button.parent().find('.go, .gp, .gt').hide();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'hidden');
+            button.css('text-decoration', 'line-through');
+            button.attr('title', show_text);
+            button.data('hidden', 'true');
+        } else {
+            // show the code output
+            button.parent().find('.go, .gp, .gt').show();
+            button.next('pre').find('.gt').nextUntil('.gp, .go').css('visibility', 'visible');
+            button.css('text-decoration', 'none');
+            button.attr('title', hide_text);
+            button.data('hidden', 'false');
+        }
+    });
+
+	/*** Add permalink buttons next to glossary terms ***/
+	$('dl.glossary > dt[id]').append(function() {
+		return ('<a class="headerlink" href="#' +
+			    this.getAttribute('id') +
+			    '" title="Permalink to this term">¶</a>');
+	});
+});
+
+</script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</body>
+</html>
